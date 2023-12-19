@@ -19,7 +19,7 @@ set message "meow"
 #epic!! 110/s
 function commitcool
     set id (git commit-tree -p $id -m $message (git write-tree))
-    echo $id > .git/HEAD
+    echo $id > .git/head
 end
 
 # like 10% slower 100/s
