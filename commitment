@@ -5,11 +5,11 @@ function loop
 
     for i in (seq $count)
         eval $command
-        if test (math $i%100) -eq 0
-            echo $i
+        if test (math $i%10000) -eq 0
+            echo $i 
+            git push
         end
     end
-
 end
 
 
