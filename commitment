@@ -1,6 +1,29 @@
-#!/bin/sh
+#!/usr/bin/env fish
+function loop
+    set count $argv[1]
+    set command $argv[2..-1]
 
-while true; do
-    git commit --allow-empty --no-verify --quiet -m 'commit' > /dev/null
-done
+    for i in (seq $count)
+        eval $command
+        if test (math $i%100) -eq 0
+            echo $i
+        end
+    end
+
+end
+
+
+set id (git rev-parse @)
+set message "meow"
+#TODO: parallelise it somehow with git merge
+#epic!! 110/s
+function commitcool
+    set id (git commit-tree -p $id -m $message (git write-tree))
+    echo $id > .git/HEAD
+end
+
+# like 10% slower 100/s
+function commitBoring 
+    git commit --allow-empty --no-verify --quiet -m $message
+end
 
